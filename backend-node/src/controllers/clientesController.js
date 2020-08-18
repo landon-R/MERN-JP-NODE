@@ -3,11 +3,10 @@ const clientesModel = require("../models/clientesModel");
 exports.createCliente = async (req, res, next) => {
   try {
     const cliente = new clientesModel(req.body);
-    res.json({ message: "user created" });
     await cliente.save();
-    console.log(cliente);
+    res.json({ message: "se creo un cliente successfully" });
   } catch (error) {
-    res.json({ message: error });
+    res.send(error)
     next();
   }
 };
@@ -17,7 +16,7 @@ exports.getClientes = async (req, res, next) => {
     const cliente = await clientesModel.find({});
     res.json(cliente);
   } catch (error) {
-    res.json({ message: error });
+    res.send(error)
   }
 };
 
@@ -44,8 +43,9 @@ exports.updateCliente = async (req, res, next) => {
       { new: true }
     );
     res.json(cliente)
+    res.send({ message: "cliente no existe" });  ////
   } catch (error) {
-    res.json({ message: error });
+    res.send(error)
     next()
   }
 };

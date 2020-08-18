@@ -1,8 +1,8 @@
 .sidebar {
     padding: 1em;
     text-align: center;
-    width: 25%;
-    height: calc(100vh - 56px);
+    min-height: calc(100vh - 56px);
+    height: 100%;
     background-color: #42424242;
 
     .grupo-link {
@@ -12,11 +12,10 @@
             color: #0a97b0;
             font-size: 1.2em;
             transition: 0.5s;
-            text-shadow: 1px 0px 0px black;
+            font-weight: bold;
             
             &:hover {
-                color: #24a19c;
-                font-weight: bold;
+                color: #00005c;
             }
 
         }
