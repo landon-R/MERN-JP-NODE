@@ -26,6 +26,24 @@
     box-shadow: 1px 1px 6px black;
     width: 100%;
     height: 100%;
-    padding: 2em;
+    padding: 1em 2em;
   }
+}
+
+
+
+//configuara styled de sweealert2
+.popup-classx {
+  border-radius: 25px;
+}
+
+.actions-class {
+  border-radius: 25px !important;
+}
+
+.confirm-button-class {
+  border-radius: 20px !important;
+}
+.cancel-button-class {
+  border-radius: 20px !important;
 }

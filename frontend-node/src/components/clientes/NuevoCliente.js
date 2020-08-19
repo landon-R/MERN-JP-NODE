@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import clienteAxios from "../../config/axios";
 
 const NuevoCliente = (props) => {
-
   const [dataCliente, setDataCliente] = useState({
     nombre: "",
     apellido: "",
@@ -12,7 +11,6 @@ const NuevoCliente = (props) => {
     email: "",
     telefono: "",
   });
-
 
   const cargarDatos = (e) => {
     setDataCliente({
@@ -23,45 +21,53 @@ const NuevoCliente = (props) => {
 
   const { nombre, apellido, empresa, email, telefono } = dataCliente;
 
-
   // para activar el button de crear cliente
   const validarCliente = () => {
-    let valido = !nombre.length || !apellido.length || !empresa.length || !email.length || !telefono.length
-    return valido
-  }
+    let valido = !nombre.length ||!apellido.length ||!empresa.length ||!email.length || !telefono.length;
+    return valido;
+  };
 
   // guardar los datos en la base de datos
   const guardarCliente = async (e) => {
     e.preventDefault();
-    await clienteAxios.post("/clientes", dataCliente).then((res) => {
-        if (res.data.code === 11000) {
-            Swal.fire(
-                'Hubo un Error!',
-                `El email ya existe`,
-                'error'
-              )
-        } else {
-            console.log(res);
-            Swal.fire(
-                `${res.data.message}`,
-                'You clicked the button!',
-                'success'
-              )
-            }
-            props.history.push('/')  
-    });
-    // setDataCliente({
-    //   nombre: "",
-    //   apellido: "",
-    //   empresa: "",
-    //   email: "",
-    //   telefono: "",
+
+    //version 01
+    // await clienteAxios.post("/clientes", dataCliente).then((res) => {
+    //     if (res.data.code === 11000) {
+    //         Swal.fire(
+    //             'Hubo un Error!',
+    //             `El email ya existe`,
+    //             'error'
+    //           )
+    //     } else {
+    //         console.log(res);
+    //         Swal.fire(
+    //             `${res.data.message}`,
+    //             'You clicked the button!',
+    //             'success'
+    //           )
+    //         }
+    //         props.history.push('/')
     // });
+
+    //version 02
+    const res = await clienteAxios.post("/clientes", dataCliente);
+    console.log(res);
+    if (res.data.code === 11000) {
+      Swal.fire("Hubo un Error!",
+       `El email ya existe`,
+        "error"
+        );
+    } else {
+      console.log(res);
+      Swal.fire(`${res.data.message}`, "You clicked the button!", "success");
+    }
+    props.history.push("/");
   };
 
   return (
     <div>
-      <h3>Nuevo Cliente</h3>
+      <h4 className="font-weight-bold">NUEVO CLIENTE</h4>
       <Form onSubmit={guardarCliente}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Nombre</Form.Label>
@@ -113,7 +119,7 @@ const NuevoCliente = (props) => {
             value={telefono}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" disabled={validarCliente()} >
+        <Button variant="primary" type="submit" disabled={validarCliente()}>
           Crear Nuevo Cliente
         </Button>
       </Form>

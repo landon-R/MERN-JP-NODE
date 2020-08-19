@@ -44,7 +44,7 @@ exports.createProducto = async (req, res, next) => {
     res.json({ message: "producto created successfully" });
     await producto.save();
   } catch (error) {
-    res.json({ message: error });
+    res.send(error)
     next();
   }
 };

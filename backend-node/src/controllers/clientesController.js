@@ -43,7 +43,6 @@ exports.updateCliente = async (req, res, next) => {
       { new: true }
     );
     res.json(cliente)
-    res.send({ message: "cliente no existe" });  ////
   } catch (error) {
     res.send(error)
     next()

@@ -6,6 +6,8 @@ import clienteAxios from "../../config/axios";
 
 const EditarCliente = (props) => {
 
+  const idx = props.match.params.id
+
   const [dataCliente, setDataCliente] = useState({
     nombre: "",
     apellido: "",
@@ -15,14 +17,14 @@ const EditarCliente = (props) => {
   });
 
 const user = async () => {
-    const res = await clienteAxios.get(`/clientes/${props.match.params.id}`)
+    const res = await clienteAxios.get(`/clientes/${idx}`)
     setDataCliente(res.data)
 }
-
 
 useEffect(() => {
   user()
 }, [])
+
 
   const cargarDatos = (e) => {
     setDataCliente({
@@ -35,9 +37,9 @@ useEffect(() => {
 
 
   // guardar los datos en la base de datos
-  const guardarCliente = async (e) => {
+  const updateCliente = async (e) => {
     e.preventDefault();
-    await clienteAxios.put(`/clientes/${props.match.params.id}`, dataCliente).then((res) => {
+    await clienteAxios.put(`/clientes/${idx}`, dataCliente).then((res) => {
         console.log(res);
         if (res.data.code === 11000) {
             Swal.fire(
@@ -48,7 +50,7 @@ useEffect(() => {
         } else {
             console.log(res);
             Swal.fire(
-                'cliente updates successfully',
+                'cliente updated successfully',
                 'You clicked the button!',
                 'success'
               )
@@ -61,7 +63,7 @@ useEffect(() => {
   return (
     <div>
       <h3>Editar Cliente</h3>
-      <Form onSubmit={guardarCliente}>
+      <Form onSubmit={updateCliente}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Nombre</Form.Label>
           <Form.Control
@@ -113,7 +115,7 @@ useEffect(() => {
           />
         </Form.Group>
         <Button variant="primary" type="submit" >
-          Crear Nuevo Cliente
+          Actualizar Cliente
         </Button>
       </Form>
     </div>
