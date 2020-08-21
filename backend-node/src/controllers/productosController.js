@@ -1,6 +1,7 @@
 const ProductosModel = require("../models/productosModel");
 const multer = require("multer");
 const shortid = require("shortid");
+const productosModel = require("../models/productosModel");
 
 const configuracionMulter = {
   storage: (fileStorage = multer.diskStorage({
@@ -103,7 +104,7 @@ exports.updateProducto = async (req, res, next) => {
   }
 };
 
-
+// eliminar producto  
 exports.deleteProducto = async (req, res, next) => {
     try {
         const producto = await ProductosModel.findOneAndDelete({_id: req.params.IdProducto})
@@ -112,4 +113,17 @@ exports.deleteProducto = async (req, res, next) => {
         res.json({ message: error });
         next();
     }
+}
+
+
+// endpoint para buscar productos
+exports.buscarProducto = async (req, res, next) => {
+ try {
+   const {query} = req.params
+   const producto = await productosModel.find({nombre: new RegExp(query,'i')})
+   res.json(producto)
+ } catch (error) {
+   res.send(error)
+   next()
+ }
 }

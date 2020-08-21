@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom'
 import { Card, Button } from "react-bootstrap";
-import { TiEdit, TiTrash } from "react-icons/ti";
+import { TiEdit, TiTrash, TiPlus } from "react-icons/ti";
 import clienteAxios from "../../config/axios";
 import Swal from 'sweetalert2'
 import './cliente.scss'
@@ -46,6 +46,9 @@ const Cliente = ({ e_cli, obtenerClientes }) => {
     <Card className="my-2">
       <Card.Body>
         <div className="float-right d-flex flex-column">
+          <Link to={`/pedidos/nuevo/${e_cli._id}`} className="btn btn-secondary my-1">
+            Nuevo Pedido <TiPlus className="mb-1" style={{width: "20px", height: "20px"}} />{" "}
+          </Link>
           <Link to={`/clientes/editar/${e_cli._id}`} className="btn btn-info my-1">
             Editar Cliente <TiEdit className="mb-1" style={{width: "20px", height: "20px"}} />{" "}
           </Link>
