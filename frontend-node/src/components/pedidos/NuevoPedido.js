@@ -78,6 +78,28 @@ const NuevoPedido = (props) => {
     setTotal(nuevoTotal)
   }
 
+
+
+  //almacena el pedido en la base de datos
+  const realizarPedido = async (e) => {
+    e.preventDefault()
+
+    // pedido estructura de un obejto
+    const pedido = {
+      cliente: idx,
+      pedido: productos,
+      total: total
+    }
+    //almacenarlo en la base de datos
+    const resultado = await clienteAxios.post('/pedidos', pedido)
+    Swal.fire({
+      icon: "success",
+      type: "error",
+      title: resultado.data.message,
+      timer: 2500,
+    });
+  }
+
   return (
     <div>
       <h4 className="font-weight-bold ml-2">NUEVO PEDIDO</h4>
@@ -121,7 +143,9 @@ const NuevoPedido = (props) => {
         </p>
 
         {total > 0 && (
-          <form>
+          <form
+          onSubmit={realizarPedido}
+          >
             <button type="submit" className="btn btn-info btn-block">
               Agregar Pedido
             </button>

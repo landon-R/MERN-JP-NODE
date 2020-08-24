@@ -7,7 +7,7 @@ exports.createPedido = async (req, res, next) => {
     res.json({ message: "pedido created successfully" });
     await pedido.save();
   } catch (error) {
-    res.json({ message: error });
+    res.send(error)
     next();
   }
 };

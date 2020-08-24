@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GrFormSubtract, GrFormAdd } from "react-icons/gr";
 
 const FormCantidadProducto = ({e_pro, productos, setProductos, index}) => {
@@ -19,7 +19,7 @@ const FormCantidadProducto = ({e_pro, productos, setProductos, index}) => {
     // validar si esta en 0 no puede ir mas alla
     if(todosProductos[i].cantidad === 0) return
 
-    //decremento
+    //decremento resta numero (--  =  -1)
     todosProductos[i].cantidad--;
     setProductos(todosProductos)
  
