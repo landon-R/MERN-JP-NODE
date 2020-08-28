@@ -17,15 +17,6 @@ const Productos = () => {
     apiProductos();
   }, []);
 
-  //    // poner spinner
-  //    if(!productos.length) {
-  //     return (
-  //         <div className=" d-flex justify-content-center h-100 align-items-center" >
-  //             <Spinnerx/>
-  //         </div>
-  //     )
-  // }
-
   return (
     <div>
       <Link to="/productos/nuevo" className="btn btn-outline-info float-right">
