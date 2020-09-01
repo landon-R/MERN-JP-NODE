@@ -4,9 +4,7 @@ import Swal from "sweetalert2";
 import clienteAxios from "../../config/axios";
 import "./auth.scss";
 
-function Login() {
-
-
+function Login(props) {
 
   const [credenciales, setCredenciales] = useState({
     email: "",
@@ -31,6 +29,15 @@ function Login() {
           //extraer el token y colocarlo en localstorage
           const { token } = respuesta.data
           localStorage.setItem('token', token)
+
+          Swal.fire({
+              icon: "success",
+            title:"login correcto",
+            text:"has Iniciado sesion",
+            
+          })
+
+          props.history.push('/')
 
       } catch (error) {
           console.log(error);

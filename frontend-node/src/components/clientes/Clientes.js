@@ -9,7 +9,11 @@ const Clientes = () => {
   const [clientes, setClientes] = useState([]);
 
   const obtenerClientes = async () => {
-    const res = await clienteAxios.get("/clientes");
+    const res = await clienteAxios.get("/clientes", {
+      headers: {
+        Authorization: `Bearer HOLA`
+      }
+    });
     setClientes(res.data);
   };
 
