@@ -15,6 +15,8 @@ import EditarProducto from "./components/productos/EditarProducto";
 import Pedidos from "./components/pedidos/Pedidos";
 import NuevoPedido from "./components/pedidos/NuevoPedido";
 
+import Login from "./components/auth/Login";
+
 function App() {
 
   console.log(process.env.REACT_APP_BACKEND_URL);
@@ -38,6 +40,12 @@ function App() {
 
             <Route exact={true} path="/pedidos" component={Pedidos} />
             <Route exact={true} path="/pedidos/nuevo/:id" component={NuevoPedido} />
+
+
+            <Route exact={true} path="/iniciar-sesion" component={Login} />
+
+
+
           </Switch>
           </div>
         </div>
