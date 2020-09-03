@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import clienteAxios from "../../config/axios";
+import {CRMContext} from '../../context/CRMContext'
 import "./auth.scss";
 
 function Login(props) {
+
+  const [auth, setAuth] = useContext(CRMContext)
+
+  console.log(auth);
 
   const [credenciales, setCredenciales] = useState({
     email: "",
@@ -30,6 +35,13 @@ function Login(props) {
           const { token } = respuesta.data
           localStorage.setItem('token', token)
 
+          //ponerlo en el state 
+          setAuth({
+            auth: true,
+            token
+          })
+
+          //modal de alerta
           Swal.fire({
               icon: "success",
             title:"login correcto",
@@ -50,8 +62,8 @@ function Login(props) {
   }
 
   return (
-    <div>
-      <div className="login">
+    <div className="login">
+      <div className="login-interno">
         <Form onSubmit={iniciarSesion} >
           <h3 className="text-center">INICIAR SESION</h3>
           <Form.Group controlId="formBasicEmail">
@@ -74,7 +86,7 @@ function Login(props) {
               onChange={leerDatos}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button  style={{borderRadius: "20px"}} block variant="primary" type="submit">
             Login User
           </Button>
         </Form>

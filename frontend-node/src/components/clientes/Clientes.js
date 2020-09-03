@@ -1,25 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, withRouter } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import { MdPersonAdd } from "react-icons/md";
 import clienteAxios from "../../config/axios";
 import Cliente from "./Cliente";
+import {CRMContext} from '../../context/CRMContext';
 
-const Clientes = () => {
+const Clientes = (props) => {
+
+  //utilizar valores del context
+  const [auth, setAuth] = useContext(CRMContext)
+
+  
+  //state del cliente
   const [clientes, setClientes] = useState([]);
 
+  //obtener clientes de la API
   const obtenerClientes = async () => {
-    const res = await clienteAxios.get("/clientes", {
-      headers: {
-        Authorization: `Bearer HOLA`
+   if(auth.token !== '') {
+
+    try {
+      const res = await clienteAxios.get("/clientes", {
+        headers: {
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+      setClientes(res.data);
+    } catch (error) {
+      //erroe con autorizacion
+      if(error.response.status = 500) {
+        props.history.push('/iniciar-sesion')
       }
-    });
-    setClientes(res.data);
+    }
+
+   } else {
+    props.history.push('/iniciar-sesion')
+   }
   };
 
   useEffect(() => {
     obtenerClientes();
   }, []);
+
+  if(!auth.token) {
+    props.history.push('/iniciar-sesion')
+  }
 
 
   return (
@@ -59,4 +84,4 @@ const Clientes = () => {
   );
 };
 
-export default Clientes;
+export default withRouter(Clientes);
