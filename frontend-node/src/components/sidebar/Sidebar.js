@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import {FaUsers, FaClipboard, FaWeightHanging} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
+import {CRMContext} from '../../context/CRMContext';
 import "./Sidebar.scss";
 
 const Sidebar = () => {
+
+const [auth] = useContext(CRMContext)
+
+
+if(!auth.auth) return null
+
   return (
     <div className="sidebar">
       <h4 className="mt-4 font-weight-bold" >Administracion</h4>
